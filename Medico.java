@@ -1,49 +1,47 @@
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.ArrayList;
+
 
 public class Medico extends Persona {
 
-    String specializzazione;
-    Queue<Prenotazione> prenotazioni = new LinkedList<>();
 
-    public void setSpecializzazione(String specializzazione) {
+    private String specializzazione;
+
+    // Lista che contiene tutte le visite (prenotazioni) del medico
+    private ArrayList<Visita> prenotazioni;
+
+
+    public Medico(String nome, String cognome, String specializzazione) {
+        super(nome, cognome);
         this.specializzazione = specializzazione;
+        this.prenotazioni = new ArrayList<Visita>();
     }
+
 
     public String getSpecializzazione() {
         return specializzazione;
     }
 
-    public void aggiungiPrenotazione(Prenotazione p) {
-        prenotazioni.add(p);   // enqueue
+    // Metodo che restituisce la lista delle prenotazioni
+    public ArrayList<Visita> getPrenotazioni() {
+        return prenotazioni;
     }
+
+    ì
+    public void aggiungiVisita(Visita v) {
+        prenotazioni.add(v); // Inserisce la visita nella lista
+    }
+
 
     public void visualizzaPrenotazioni() {
-        for (Prenotazione p : prenotazioni) {
-            System.out.println(p);
+
+        // Stampa il nome del medico e la sua specializzazione
+        System.out.println("Prenotazioni del Dottor " + getCognome() + "(" + specializzazione + ")");
+
+        // Ciclo che scorre tutte le visite nella lista
+        for (int i = 0; i < prenotazioni.size(); i++) {
+
+            // Stampa la visita alla posizione i
+            System.out.println(prenotazioni.get(i));
         }
-    }
-
-    public void effettuaVisita() {
-        if (prenotazioni.isEmpty()) {
-            System.out.println("Nessuna prenotazione");
-        } else {
-            Prenotazione p = prenotazioni.poll(); // dequeue
-            p.setEffettuata(true);
-            System.out.println("Visita effettuata: " + p);
-        }
-    }
-
-    public void richiestaDati(Scanner scanner) {
-        super.richiestaDati(scanner);
-        System.out.printf("Inserisci specializzazione: ");
-        setSpecializzazione(scanner.next());
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() +
-                ", specializzazione='" + specializzazione + '\'';
     }
 }
