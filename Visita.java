@@ -1,38 +1,34 @@
 public class Visita {
-    private String nomePaziente;
-    private String data;
-    private String ora;
-    private String stato;
+    private string nomePaziente;
+    private string data;
+    private string orario;
+    private string stato;
 
-    public Visita(String nomePaziente, String data, String ora) {
-        this.nomePaziente = nomePaziente;
-        this.data = data;
-        this.ora = ora;
-        this.stato = "prenotata";
+    public Visita(String nomePaziente, String data, String orario){
+        this.nomePaziente=nomePaziente;
+        this.data=data;
+        this.orario=orario;
+        this.stato="prenotata";
     }
 
     public String getNomePaziente() {
         return nomePaziente;
     }
 
-    public String getData() {
+    public string getData() {
         return data;
     }
 
-    public String getOra() {
-        return ora;
+    public string getOrario() {
+        return orario;
     }
 
-    public String getStato() {
+    public string getStato(){
         return stato;
-    }
-
-    public void setStato(String stato) {
-        this.stato = stato;
     }
 
     @Override
     public String toString() {
-        return "Visita di " + nomePaziente + " il " + data + " alle " + ora + " - Stato: " + stato;
+        return "Visita di: " + nomePaziente + "in data: " + data + "orario: " + orario + "stato visita: " +  stato;
     }
 }
