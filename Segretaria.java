@@ -1,72 +1,58 @@
 import java.util.ArrayList;
 
-
 public class Segreteria {
-
 
     private ArrayList<Medico> medici;
 
     public Segreteria() {
-        medici = new ArrayList<Medico>();
+        medici = new ArrayList<>();
     }
-
 
     public void aggiungiMedico(Medico m) {
         medici.add(m);
     }
 
+    public void prenotaVisita(String nomePaziente, String data, String orario, Medico medico) {
 
-    public void prenotaVisita(String nomePaziente, Medico medico) {
-
-        Visita v = new Visita(nomePaziente); // crea una nuova visita
-
-        medico.aggiungiVisita(v); // la aggiunge al medico scelto
+        Visita v = new Visita(nomePaziente, data, orario);
+        medico.aggiungiVisita(v);
 
         System.out.println("Visita prenotata con il Dottor " + medico.getCognome());
     }
 
-
     public void cercaPrenotazione(String nomePaziente) {
 
-        // Scorre tutti i medici
         for (int i = 0; i < medici.size(); i++) {
 
-            Medico m = medici.get(i); // prende il medico
+            Medico m = medici.get(i);
 
-            // Scorre tutte le prenotazioni del medico
-            for (int j = 0; j < m.getPrenotazioni().size(); j++) {
+            int size = m.getPrenotazioni().size();
 
-                Visita v = m.getPrenotazioni().get(j); // prende la visita
+            for (int j = 0; j < size; j++) {
 
-                // Controlla se il nome coincide
+                Visita v = m.getPrenotazioni().poll();
+
                 if (v.getNomePaziente().equals(nomePaziente)) {
 
                     System.out.println("Trovata visita con il Dottor " + m.getCognome());
-
-                    System.out.println(v); // stampa la visita
+                    System.out.println(v);
                 }
+
+                m.getPrenotazioni().add(v); // reinserisco
             }
         }
     }
 
-
     public void cancellaVisita(String nomePaziente) {
-
 
         for (int i = 0; i < medici.size(); i++) {
 
-            Medico m = medici.get(i); // prende il medico
-
-            //  rimuove la visita
-            if (m.rimuoviVisita(nomePaziente)) {
-
+            if (medici.get(i).rimuoviVisita(nomePaziente)) {
                 System.out.println("Visita cancellata.");
-
-                return; // esce se cancellata
+                return;
             }
         }
 
-        // Se non trovata
         System.out.println("Visita non trovata o già effettuata.");
     }
 }
