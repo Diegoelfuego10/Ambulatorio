@@ -37,12 +37,9 @@ public class Medico extends Persona {
 
     public void visualizzaPrenotazioni() {
 
-        System.out.println("\nPrenotazioni del Dottor "
-                + getCognome() + " (" + specializzazione + ")");
+        System.out.println("\nPrenotazioni del Dottor " + getCognome() + " (" + specializzazione + ")");
 
-        int size = prenotazioni.size();
-
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < prenotazioni.size(); i++) {
 
             Visita v = prenotazioni.poll(); // tolgo
             System.out.println(v);          // stampo
@@ -58,11 +55,10 @@ public class Medico extends Persona {
 
             Visita v = prenotazioni.poll();
 
-            if (v.getNomePaziente().equals(nomePaziente)
-                    && v.getStato().equals("prenotata")
-                    && !rimossa) {
+            //Il nome del paziente della prenotazione v è uguale al nome che stiamo cercando
+            if (v.getNomePaziente().equals(nomePaziente) && v.getStato().equals("prenotata") && !rimossa) {
 
-                rimossa = true; // NON la reinserisco (quindi eliminata)
+                rimossa = true; // viene eliminata
 
             } else {
                 prenotazioni.add(v); // la rimetto in coda
