@@ -1,25 +1,26 @@
 public class Visita {
-    private String nomePaziente;
-    private String data;
-    private String orario;
-    private String stato; // "prenotata" o "effettuata"
+    private Paziente paziente;
+    private String data; // Gestione fissa "Oggi" come richiesto
+    private String stato;
+    private String noteMediche;
 
-    public Visita(String nomePaziente, String data, String orario) {
-        this.nomePaziente = nomePaziente;
-        this.data = data;
-        this.orario = orario;
+    public Visita(Paziente paziente) {
+        this.paziente = paziente;
+        this.data = "Oggi";
         this.stato = "prenotata";
+        this.noteMediche = "Nessuna nota";
     }
 
-    public void setEffettuata() {
+    public void referta(String note) {
         this.stato = "effettuata";
+        this.noteMediche = note;
     }
 
-    public String getNomePaziente() { return nomePaziente; }
+    public Paziente getPaziente() { return paziente; }
     public String getStato() { return stato; }
 
     @Override
     public String toString() {
-        return "[Paziente: " + nomePaziente + " | Data: " + data + " | Ora: " + orario + " | Stato: " + stato + "]";
+        return "[" + data + "] " + paziente + " | Stato: " + stato + " | Note: " + noteMediche;
     }
 }
