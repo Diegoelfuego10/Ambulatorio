@@ -22,19 +22,7 @@ public class Medico extends Persona {
     }
 
     // Il medico effettua la prossima visita
-    public void effettuaProssimaVisita() {
 
-        if (!prenotazioni.isEmpty()) {
-
-            Visita v = prenotazioni.poll(); // rimuove il primo
-            v.setEffettuata();
-
-            System.out.println("Visita effettuata: " + v);
-
-        } else {
-            System.out.println("Nessuna visita in coda.");
-        }
-    }
 
     public void visualizzaPrenotazioni() {
 
@@ -52,7 +40,7 @@ public class Medico extends Persona {
 
         boolean rimossa = false;
 
-        for (int i = 0; i < prenotazioni.size; i++) {
+        for (int i = 0; i < prenotazioni.size(); i++) {
 
             Visita v = prenotazioni.poll();
 
@@ -68,4 +56,5 @@ public class Medico extends Persona {
 
         return rimossa;
     }
+
 }
