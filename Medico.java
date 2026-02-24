@@ -1,60 +1,53 @@
-package it.edu.cannizzaro.quartab25.poliambulatorio;
 import java.util.LinkedList;
 import java.util.Queue;
 
+
 public class Medico extends Persona {
-
     private String specializzazione;
-    private Queue<Visita> prenotazioni;
+    private Queue<Visita> codaVisite;
 
-    public Medico(String nome, String cognome, String specializzazione) {
-        super(nome, cognome);
+
+    public Medico(String nome, String cognome, String sesso, String dataNascita, String specializzazione) {
+
+        super(nome, cognome, sesso, dataNascita);
         this.specializzazione = specializzazione;
-        this.prenotazioni = new LinkedList<>();
+
+        this.codaVisite = new LinkedList<>();
     }
 
-    public String getSpecializzazione() {
-        return specializzazione;
-    }
+    public String getSpecializzazione() { return specializzazione; }
+
 
     public void aggiungiVisita(Visita v) {
-        prenotazioni.add(v); // inserimento in coda
+        codaVisite.add(v); // Aggiunge l'elemento in coda
     }
 
-    // Il medico effettua la prossima visita
+    public Visita effettuaProssimaVisita(String note) {
+        // Controllo di sicurezza: se la coda è vuota, ritorna null
+        if (codaVisite.isEmpty()) return null;
 
+        // poll() estrae e rimuove il primo paziente della coda
+        Visita v = codaVisite.poll();
 
-    public void visualizzaPrenotazioni() {
-
-        System.out.println("\nPrenotazioni del Dottor " + getCognome() + " (" + specializzazione + ")");
-
-        for (int i = 0; i < prenotazioni.size(); i++) {
-
-            Visita v = prenotazioni.poll(); // tolgo
-            System.out.println(v);          // stampo
-            prenotazioni.add(v);           // reinserisco
-        }
+        // Chiama il metodo referta della classe Visita per cambiare stato e aggiungere note
+        v.referta(note);
+        return v; // Ritorna la visita completata
     }
 
-    public boolean rimuoviVisita(String nomePaziente) {
+    // Metodo per stampare a video tutte le prenotazioni correnti
+    public void visualizzaAgenda() {
+        System.out.println("\nAgenda Dott. " + cognome + " (" + specializzazione + ")");
 
-        boolean rimossa = false;
-
-        for (int i = 0; i < prenotazioni.size(); i++) {
-
-            Visita v = prenotazioni.poll();
-
-
-            if (v.getNomePaziente().equals(nomePaziente) && v.getStato().equals("prenotata") && !rimossa) {
-
-                rimossa = true; // viene eliminata
-
-            } else {
-                prenotazioni.add(v); // la rimetto in coda
+        // Verifica se ci sono pazienti nell'elenco
+        if (codaVisite.isEmpty()) {
+            System.out.println("Nessuna visita in attesa.");
+        } else {
+            // Ciclo for-each per scorrere la coda senza rimuovere gli elementi
+            for (Visita v : codaVisite) {
+                System.out.println(v); // Stampa i dettagli della visita (grazie al toString di Visita)
             }
         }
-
-        return rimossa;
     }
 
+    public Queue<Visita> getCodaVisite() { return codaVisite; }
 }
