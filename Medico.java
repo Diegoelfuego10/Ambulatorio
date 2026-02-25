@@ -42,7 +42,7 @@ public class Medico extends Persona {
         if (codaVisite.isEmpty()) {
             System.out.println("Nessuna visita in attesa.");
         } else {
-            // Ciclo for-each per scorrere la coda senza rimuovere gli elementi
+            // Ciclo for-each per scorrere la coda senza rimuovere gli elementi. la struttura dati Queue non supporta l'accesso casuale (random access) tramite indice.
             for (Visita v : codaVisite) {
                 System.out.println(v); // Stampa i dettagli della visita (grazie al toString di Visita)
             }
